@@ -1,8 +1,10 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/sender/sender",
+    "pages/receiver/receiver",
+    "pages/cat/cat"
   ],
+  "entryPagePath": "pages/sender/sender",
   "window": {
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
@@ -15,6 +17,26 @@
       "sdkVersionBegin": "3.0.0",
       "sdkVersionEnd": "15.255.255"
     }
+  },
+  "usingComponents": {
+    "t-navbar": "tdesign-miniprogram/navbar/navbar"
+  },
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/sender/sender",
+        "text": "发送端"
+      },
+      {
+        "pagePath": "pages/receiver/receiver",
+        "text": "接收端"
+      },
+      {
+        "pagePath": "pages/cat/cat",
+        "text": "接收端"
+      }
+    ]
   },
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",

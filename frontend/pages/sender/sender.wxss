@@ -1,0 +1,26 @@
+/* pages/sender/sender.wxss */
+
+.sender__wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 32rpx;
+  gap: 32rpx;
+}
+
+.sender__textarea {
+  padding: 0 !important;
+}
+
+.sender__title {
+  font-size: x-large;
+  font-weight: 600;
+}
+
+.sender__upload {}
+
+.sender__button {
+  margin: 0 !important;
+  width: fit-content !important;
+  padding: 0 64rpx !important;
+  align-self: flex-end;
+}

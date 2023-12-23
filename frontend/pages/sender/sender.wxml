@@ -1,0 +1,13 @@
+<t-navbar title="ICE4306"></t-navbar>
+<view class="sender__wrapper">
+  <view class="sender__title">发送图文</view>
+  <t-textarea
+    class="sender__textarea"
+    autosize="{{ autosize }}"
+    placeholder="要发送的信息..."
+    value="{{ text }}"
+    bind:change="onTextChanged"
+  ></t-textarea>
+  <t-upload class="sender__upload"></t-upload>
+  <t-button class="sender__button" theme="primary">发送</t-button>
+</view>

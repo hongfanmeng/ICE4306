@@ -1,0 +1,3 @@
+<t-tab-bar value="{{currentTab}}" bindchange="switchTab" theme="tag" split="{{false}}">
+  <t-tab-bar-item wx:for="{{tabs}}" wx:key="index" value="{{item.value}}"> {{item.label}} </t-tab-bar-item>
+</t-tab-bar>
