@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-multipart
+tortoise-orm
+
+# Dev Packages
+black
+flake8
+isort
