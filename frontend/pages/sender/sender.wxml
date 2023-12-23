@@ -8,6 +8,15 @@
     value="{{ text }}"
     bind:change="onTextChanged"
   ></t-textarea>
-  <t-upload class="sender__upload"></t-upload>
-  <t-button class="sender__button" theme="primary">发送</t-button>
+  <t-upload
+    class="sender__upload"
+    media-type="{{ ['image'] }}"
+    files="{{ files }}"
+    bind:success="onUploadSuccess"
+    max="1"
+  ></t-upload>
+  <t-button class="sender__button" theme="primary" bind:tap="onSubmit" disabled="{{sending}}" > 
+    发送
+  </t-button>
 </view>
+<t-toast id="t-toast" />

@@ -2,6 +2,7 @@
   "usingComponents": {
     "t-textarea": "tdesign-miniprogram/textarea/textarea",
     "t-upload": "tdesign-miniprogram/upload/upload",
-    "t-button": "tdesign-miniprogram/button/button"
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-toast": "tdesign-miniprogram/toast/toast"
   }
 }
