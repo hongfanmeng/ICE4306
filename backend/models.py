@@ -10,10 +10,15 @@ settings = get_settings()
 class Post(Model):
     id = fields.IntField(pk=True)
     text = fields.TextField()
+    encoded_text = fields.TextField()
     file = fields.OneToOneField("models.File")
+    created_at = fields.DatetimeField(auto_now_add=True)
 
     def __str__(self):
         return self.text
+
+    class PydanticMeta:
+        exculde = ["text"]
 
 
 class File(Model):
@@ -34,4 +39,4 @@ class File(Model):
 
 
 Tortoise.init_models(["models"], "models")
-Post_Pydantic = pydantic_model_creator(Post, name="Post")
+Post_Pydantic = pydantic_model_creator(Post, name="Post", exclude=["text"])
