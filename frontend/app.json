@@ -39,5 +39,8 @@
     ]
   },
   "componentFramework": "glass-easel",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "resolveAlias": {
+    "~/*": "/*"
+  }
 }

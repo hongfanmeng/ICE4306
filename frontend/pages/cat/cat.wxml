@@ -1,2 +1,31 @@
 <t-navbar title="ICE4306"></t-navbar>
-<view> cat </view>
+<view class="cat__wrapper">
+  <view class="cat__title"> 上传猫咪的图片 </view>
+
+  <t-image
+    wx:if="{{ image }}"
+    class="cat__image"
+    src="{{ image }}"
+    mode="widthFix"
+    bind:tap="onButtonTap"
+    shape="round"
+  ></t-image>
+
+  <view class="cat__placeholder" wx:else bind:tap="onButtonTap">
+    <t-image
+      src="/images/upload-placeholder.jpg"
+      mode="aspectFill"
+      width="240"
+      height="240"
+    ></t-image>
+  </view>
+  <view wx:if="{{ count }}">一共识别到 {{ count }} 只猫咪</view>
+  <t-button
+    theme="primary"
+    block
+    bind:tap="onButtonTap"
+    disabled="{{ loading }}"
+  >
+    {{ loading ? "识别猫咪中" : "选择猫咪图片" }}
+  </t-button>
+</view>

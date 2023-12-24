@@ -8,7 +8,7 @@ Component({
     tabs: [
       { value: 'sender', label: '发送端', url: "/pages/sender/sender" },
       { value: 'receiver', label: '接收端', url: "/pages/receiver/receiver" },
-      { value: 'cat', label: '猫喵识别', url: "/pages/cat/cat" },
+      { value: 'cat', label: '猫咪识别', url: "/pages/cat/cat" },
     ]
   },
 
