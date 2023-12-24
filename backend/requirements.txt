@@ -1,7 +1,14 @@
+# API Server
 fastapi
 uvicorn[standard]
 python-multipart
 tortoise-orm
+
+# For HW3 YOLO
+ultralytics 
+supervision
+opencv-python
+chardet
 
 # Dev Packages
 black

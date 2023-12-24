@@ -1,15 +1,36 @@
-import uuid
+import base64 as b64
+import io
+from contextlib import asynccontextmanager
 from typing import Annotated, List
 
+import cv2
+import numpy as np
 from fastapi import FastAPI, Form, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from tortoise.contrib.fastapi import register_tortoise
+from ultralytics import YOLO
 
 from config import get_settings
+from database import close_orm, init_orm
 from models import File, Post, Post_Pydantic
+from utils import cat_annotate, encode_text, file_save
 
-app = FastAPI()
 settings = get_settings()
+models = {}
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_orm(db_url=settings.DB_URL, modules={"models": ["models"]})
+
+    model = YOLO("yolo/yolov8s.pt")
+    models["yolov8"] = model
+
+    yield
+    await close_orm()
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 @app.post("/posts/create")
@@ -36,24 +57,24 @@ async def file_download(file_id: int) -> FileResponse:
     return FileResponse(file.path, filename=file.name, media_type=file.media_type)
 
 
-async def file_save(file: UploadFile) -> File:
-    contents = await file.read()
-    path = f"data/files/{str(uuid.uuid4())}"
-    media_type = file.content_type
-    with open(path, "wb") as f:
-        f.write(contents)
-    return await File.create(name=file.filename, path=path, media_type=media_type)
+@app.post("/cats/detect")
+async def cat_detect(file: UploadFile, json: bool = False):
+    file_bytes = np.asarray(bytearray(await file.read()), dtype=np.uint8)
+    model = models["yolov8"]
+    image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
+    annotated_image, detections = cat_annotate(model=model, image=image)
 
-async def encode_text(text: str, file: UploadFile) -> str:
-    await file.seek(0)
-    contents = await file.read()
-    text_bytes = text.encode()
-    contents_bytes = contents[0xF0 : 0xF0 + len(text_bytes)]
-    contents_bytes += b"\x00" * (len(text_bytes) - len(contents_bytes))
-    xor_results = bytes([a ^ b for a, b in zip(text_bytes, contents_bytes)])
-    print(text_bytes, contents_bytes, xor_results)
-    return xor_results.hex()
+    result_bytes = cv2.imencode(".jpg", annotated_image)[1].tobytes()
+
+    if json:
+        return {
+            "image": b64.b64encode(result_bytes).decode("utf8"),
+            "count": len(detections),
+        }
+    else:
+        result_image = io.BytesIO(result_bytes)
+        return StreamingResponse(result_image, media_type="image/jpeg")
 
 
 register_tortoise(
