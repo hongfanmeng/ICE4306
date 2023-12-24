@@ -9,6 +9,7 @@
 
 .sender__textarea {
   padding: 0 !important;
+  height: 200rpx;
 }
 
 .sender__title {
@@ -16,7 +17,8 @@
   font-weight: 600;
 }
 
-.sender__upload {}
+.sender__upload {
+}
 
 .sender__button {
   margin: 0 !important;

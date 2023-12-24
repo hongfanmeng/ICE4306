@@ -4,9 +4,6 @@ const app = getApp()
 
 Page({
   data: {
-    autosize: {
-      minHeight: 80, maxHeight: 300
-    },
     text: "",
     files: [],
     sending: false

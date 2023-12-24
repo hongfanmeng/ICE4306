@@ -1,2 +1,32 @@
 <t-navbar title="ICE4306"></t-navbar>
-<view> receiver </view>
+<scroll-view
+  enable-flex="true"
+  type="list"
+  scroll-y
+  style="flex-grow: 1; height: 0"
+>
+  <view class="receiver__wrapper">
+    <view class="receiver__title">接收到的图文</view>
+    <view class="receiver__subtitle">点击文字可以进行解码</view>
+
+    <view wx:for="{{ posts }}" wx:key="id">
+      <view class="receiver__item">
+        <t-image
+          class="receiver__image"
+          src="{{ item.file.url }}"
+          mode="aspectFill"
+          width="105"
+          height="105"
+        ></t-image>
+        <view
+          class="receiver__text"
+          bind:tap="handleTextTap"
+          data-post-id="{{ item.id }}"
+        >
+          {{ item.text ? item.text : item.text_display }}
+        </view>
+      </view>
+      <t-divider></t-divider>
+    </view>
+  </view>
+</scroll-view>

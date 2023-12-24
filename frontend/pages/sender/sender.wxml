@@ -3,10 +3,11 @@
   <view class="sender__title">发送图文</view>
   <t-textarea
     class="sender__textarea"
-    autosize="{{ autosize }}"
     placeholder="要发送的信息..."
     value="{{ text }}"
     bind:change="onTextChanged"
+    maxcharacter="100"
+    indicator
   ></t-textarea>
   <t-upload
     class="sender__upload"
