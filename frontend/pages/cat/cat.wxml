@@ -19,7 +19,7 @@
       height="240"
     ></t-image>
   </view>
-  <view wx:if="{{ count }}">一共识别到 {{ count }} 只猫咪</view>
+  <view wx:if="{{ count != null }}">一共识别到 {{ count }} 只猫咪</view>
   <t-button
     theme="primary"
     block

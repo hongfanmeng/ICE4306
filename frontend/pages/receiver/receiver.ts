@@ -32,7 +32,7 @@ Page({
     const res = await request({ url: `${app.globalData.apiBase}/posts` });
     const posts = (res.data as Post[]).map((post) => ({
       ...post,
-      text_display: this.cut(post.encoded_text, 140),
+      text_display: this.cut(post.encoded_text, 110),
     })) as Post[];
     this.setData({
       posts: posts,
