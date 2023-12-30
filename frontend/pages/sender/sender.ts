@@ -7,7 +7,7 @@ const app = getApp();
 Page({
   data: {
     text: "",
-    files: [],
+    files: [] as any[],
     sending: false,
   },
 
@@ -15,11 +15,11 @@ Page({
     this.getTabBar().setData({ currentTab: "sender" });
   },
 
-  onTextChanged(e) {
+  onTextChanged(e: WechatMiniprogram.TextareaInput) {
     this.setData({ text: e.detail.value });
   },
 
-  onUploadSuccess(e) {
+  onUploadSuccess(e: WechatMiniprogram.CustomEvent) {
     this.setData({ files: e.detail.files });
   },
 
@@ -33,7 +33,7 @@ Page({
     });
   },
 
-  async onSubmit(e) {
+  async onSubmit() {
     const apiBase = app.globalData.apiBase;
     if (this.data.text.length == 0) {
       this.showToast("warning", "文字不能为空");

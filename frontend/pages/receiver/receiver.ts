@@ -40,7 +40,7 @@ Page({
     });
   },
 
-  async handleTextTap(e) {
+  async handleTextTap(e: WechatMiniprogram.BaseEvent) {
     const postId = e.target.dataset.postId as number;
     const postIdx = this.data.posts.findIndex(
       (post: Post) => post.id == postId
