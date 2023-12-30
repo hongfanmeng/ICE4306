@@ -7,7 +7,6 @@ import cv2
 import numpy as np
 from fastapi import FastAPI, Form, UploadFile
 from fastapi.responses import FileResponse, StreamingResponse
-from tortoise.contrib.fastapi import register_tortoise
 from ultralytics import YOLO
 
 from config import get_settings
@@ -23,8 +22,8 @@ models = {}
 async def lifespan(app: FastAPI):
     await init_orm(db_url=settings.DB_URL, modules={"models": ["models"]})
 
-    model = YOLO("yolo/yolov8s.pt")
-    models["yolov8"] = model
+    models["yolov8"] = YOLO("yolo/yolov8s.pt")
+    models["yolov5"] = YOLO("yolo/yolov5su.pt")
 
     yield
     await close_orm()
@@ -60,7 +59,7 @@ async def file_download(file_id: int) -> FileResponse:
 @app.post("/cats/detect")
 async def cat_detect(file: UploadFile, json: bool = False):
     file_bytes = np.asarray(bytearray(await file.read()), dtype=np.uint8)
-    model = models["yolov8"]
+    model = models["yolov5"]
     image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
     annotated_image, detections = cat_annotate(model=model, image=image)
@@ -75,12 +74,3 @@ async def cat_detect(file: UploadFile, json: bool = False):
     else:
         result_image = io.BytesIO(result_bytes)
         return StreamingResponse(result_image, media_type="image/jpeg")
-
-
-register_tortoise(
-    app,
-    db_url=settings.DB_URL,
-    modules={"models": ["models"]},
-    generate_schemas=True,
-    add_exception_handlers=True,
-)
