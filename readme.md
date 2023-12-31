@@ -1,8 +1,12 @@
 # ICE4306
 
+## 安装
+
+后端使用 `backend/install.sh` 安装后使用 `uvicorn main:app --reload --host 0.0.0.0` 运行，前端在微信开发者工具中打开。
+
 ## 配置
 
-需要在 `backend/.env` 和 `frontend/app.ts` 中配置 `fastapi` 服务器的域名，将 `https://dev8000.lsla.cc` 改为使用的域名即可 
+需要在 `backend/.env` 和 `frontend/app.ts` 中配置 `fastapi` 服务器的域名，将 `https://dev8000.lsla.cc` 改为使用的域名，还需要在微信小程序的后台中加入所使用的域名到 `request 合法域名` 和 `uploadFile 合法域名` 当中
 
 ## 前端截图
 
