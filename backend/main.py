@@ -29,7 +29,7 @@ async def lifespan(app: FastAPI):
     await close_orm()
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(lifespan=lifespan, title="ICE4306")
 
 
 @app.post("/posts/create")

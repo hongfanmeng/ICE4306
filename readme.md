@@ -34,3 +34,8 @@
     <img src="./images/frontend-cat-2.png" height="400">
 </div>
 
+## 后端接口
+
+运行 fastapi 后可以通过 `http://localhost:8000/docs` 查看到 API 列表
+
+<img src="./images/backend-api.png">
